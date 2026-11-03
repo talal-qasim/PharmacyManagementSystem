@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="PharmacyApp.Controls.StockTransactionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Stock Transaction History (read-only audit log — Section 28)"
+                   Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,12"/>
+
+        <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding StockTransactions}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding TransactionDate, StringFormat='g'}" Width="140"/>
+                <DataGridTextColumn Header="Medicine" Binding="{Binding ProductVariant.Medicine.Name}" Width="140"/>
+                <DataGridTextColumn Header="Variant" Binding="{Binding ProductVariant.Strength}" Width="90"/>
+                <DataGridTextColumn Header="Batch No." Binding="{Binding Batch.BatchNumber}" Width="100"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding TransactionType}" Width="110"/>
+                <DataGridTextColumn Header="Qty Change" Binding="{Binding QuantityChange}" Width="90"/>
+                <DataGridTextColumn Header="Reference" Binding="{Binding Reference}" Width="120"/>
+                <DataGridTextColumn Header="Reason" Binding="{Binding Reason}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

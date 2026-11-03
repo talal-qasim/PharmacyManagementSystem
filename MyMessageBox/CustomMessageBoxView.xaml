@@ -1,0 +1,52 @@
+<Window x:Class="MyMessageBox.CustomMessageBoxView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CustomMessageBoxView"
+        Height="220" Width="420"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        FontFamily="Poppins"
+        Topmost="True"
+        ShowInTaskbar="False">
+
+    <Border Background="{DynamicResource SecundaryBackgroundColor}"
+            BorderBrush="{DynamicResource AccentColor}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Margin="12">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" Color="Black"/>
+        </Border.Effect>
+
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TitleText"
+                       Grid.Row="0"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource PrimaryTextColor}"
+                       Margin="0,0,0,12"/>
+
+            <TextBlock x:Name="MessageText"
+                       Grid.Row="1"
+                       TextWrapping="Wrap"
+                       FontSize="14"
+                       Foreground="{DynamicResource SecundaryTextColor}"
+                       VerticalAlignment="Center"/>
+
+            <StackPanel x:Name="ButtonsPanel"
+                        Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,20,0,0"/>
+        </Grid>
+    </Border>
+</Window>

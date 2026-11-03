@@ -1,0 +1,55 @@
+﻿<Window x:Class="PharmacyApp.Views.PurchaseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helpers="clr-namespace:PharmacyApp.Images.Helpers"
+        Title="Purchase"
+        SizeToContent="Height" Width="440"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        FontFamily="Poppins"
+        helpers:DialogCloser.DialogResult="{Binding CloseDialog}">
+
+    <Border Background="{DynamicResource SecundaryBackgroundColor}"
+            BorderBrush="{DynamicResource AccentColor}" BorderThickness="1"
+            CornerRadius="8" Margin="12">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Purchase" FontSize="18" FontWeight="Bold"
+                       Foreground="{DynamicResource PrimaryTextColor}" Margin="0,0,0,16"/>
+
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Supplier" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <ComboBox ItemsSource="{Binding Suppliers}" DisplayMemberPath="Name"
+                          SelectedValuePath="Id" SelectedValue="{Binding Purchase.SupplierId}"
+                          Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Purchase Date" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <DatePicker SelectedDate="{Binding Purchase.PurchaseDate}" Padding="6" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Reference / PO Number (optional)" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding Purchase.ReferenceNumber, UpdateSourceTrigger=PropertyChanged}" Padding="8"/>
+
+                <TextBlock Text="Add items after saving, via 'Manage Items' on the purchase grid."
+                           Foreground="{DynamicResource SecundaryTextColor}" FontSize="11" TextWrapping="Wrap" Margin="0,12,0,0"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="2" Text="{Binding ValidationMessage}" Foreground="{DynamicResource DangerColor}" Margin="0,12,0,0"/>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                <Button Style="{StaticResource SecondaryButtonStyle}" Content="Cancel" Width="90" Height="34" Margin="0,0,8,0" Command="{Binding CancelCommand}"/>
+                <Button Content="Save" Width="90" Height="34" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}"/>
+            </StackPanel>
+        
+            <Button Grid.Row="0" Grid.ColumnSpan="10" Content="✕" Width="36" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Foreground="{DynamicResource SecundaryTextColor}" BorderThickness="0" Command="{Binding CancelCommand}"/>
+        </Grid>
+    </Border>
+</Window>

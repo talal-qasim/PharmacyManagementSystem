@@ -1,0 +1,71 @@
+<Window x:Class="PharmacyApp.Views.ProductVariantView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helpers="clr-namespace:PharmacyApp.Images.Helpers"
+        Title="Product Variant"
+        SizeToContent="Height" Width="460"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        FontFamily="Poppins"
+        helpers:DialogCloser.DialogResult="{Binding CloseDialog}">
+
+    <Border Background="{DynamicResource SecundaryBackgroundColor}"
+            BorderBrush="{DynamicResource AccentColor}" BorderThickness="1"
+            CornerRadius="8" Margin="12">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Product Variant" FontSize="18" FontWeight="Bold"
+                       Foreground="{DynamicResource PrimaryTextColor}" Margin="0,0,0,16"/>
+
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Strength (e.g. 250mg, 250mg/5ml)" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.Strength, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Dosage Form" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <ComboBox ItemsSource="{Binding DosageForms}" SelectedItem="{Binding ProductVariant.DosageForm}"
+                          Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Package Size (e.g. 14 tablets, 250ml, 20g)" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.PackageSize, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Stock / Selling Unit" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <ComboBox ItemsSource="{Binding StockUnits}" SelectedItem="{Binding ProductVariant.StockUnit}"
+                          Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Units per Package (tablets/capsules only — leave 1 for tubes/bottles/vials, per Section 9)"
+                           Foreground="{DynamicResource SecundaryTextColor}" TextWrapping="Wrap" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.UnitsPerPackage, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Barcode (optional)" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.Barcode, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Selling Price (per stock unit)" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.SellingPrice, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Minimum Stock Level" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.MinimumStockLevel, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Reorder Quantity" Foreground="{DynamicResource SecundaryTextColor}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding ProductVariant.ReorderQuantity, UpdateSourceTrigger=PropertyChanged}" Padding="8"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="2" Text="{Binding ValidationMessage}" Foreground="{DynamicResource DangerColor}" Margin="0,12,0,0"/>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                <Button Content="Cancel" Width="90" Height="34" Margin="0,0,8,0" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CancelCommand}"/>
+                <Button Content="Save" Width="90" Height="34" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}"/>
+            </StackPanel>
+        
+            <Button Grid.Row="0" Grid.ColumnSpan="10" Content="✕" Width="36" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Foreground="{DynamicResource SecundaryTextColor}" BorderThickness="0" Command="{Binding CancelCommand}"/>
+        </Grid>
+    </Border>
+</Window>

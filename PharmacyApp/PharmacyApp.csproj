@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>PharmacyApp</RootNamespace>
+    <AssemblyName>PharmacyApp</AssemblyName>
+    <ApplicationIcon></ApplicationIcon>
+    <NoWarn>NU1701;NETSDK1206</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Section 3 correction from the master prompt: EF Core upgraded 5.0.17 -> 8.x -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- GalaSoft.MvvmLight.Messaging.Messenger source, per rulebook Rule 6.5 -->
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+
+    <!-- UI toolkit, per rulebook Rule 8.1/8.2 -->
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+    <PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
+
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+
+    <!--
+      DevExpress.Wpf.Grid / DevExpress.Wpf.Reporting are commercial packages served from
+      DevExpress's own NuGet feed (nuget.devexpress.com), not nuget.org. They are referenced
+      here per rulebook Rule 8.5 / Section 9, but the DevExpress feed + license key must be
+      configured in NuGet.Config on the machine that opens this solution in Visual Studio.
+      Until that is set up, grid controls in this scaffold use a plain WPF DataGrid so the
+      project still compiles; swap in dxg:GridControl once the DevExpress feed is available.
+    -->
+    <!-- <PackageReference Include="DevExpress.Wpf.Grid" Version="24.1.*" /> -->
+    <!-- <PackageReference Include="DevExpress.Wpf.Reporting" Version="24.1.*" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\MyMessageBox\MyMessageBox.csproj" />
+    <ProjectReference Include="..\PharmacyApp.Reporting\PharmacyApp.Reporting.csproj" />
+  </ItemGroup>
+
+</Project>

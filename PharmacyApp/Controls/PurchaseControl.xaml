@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="PharmacyApp.Controls.PurchaseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,12">
+            <Button Content="New Purchase" Width="120" Height="32" Margin="0,0,8,0"
+                    Style="{StaticResource PrimaryButtonStyle}" Command="{Binding AddCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Edit" Width="90" Height="32" Margin="0,0,8,0" Command="{Binding UpdateCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Delete" Width="90" Height="32" Margin="0,0,8,0" Command="{Binding DeleteCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Manage Items" Width="120" Height="32" Margin="0,0,8,0" Command="{Binding ManageItemsCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Receive" Width="90" Height="32" Command="{Binding ReceiveCommand}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding Purchases}"
+                  SelectedItem="{Binding SelectedPurchase}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier.Name}" Width="160"/>
+                <DataGridTextColumn Header="Purchase Date" Binding="{Binding PurchaseDate, StringFormat=d}" Width="120"/>
+                <DataGridTextColumn Header="Reference" Binding="{Binding ReferenceNumber}" Width="130"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90"/>
+                <DataGridTextColumn Header="Received Date" Binding="{Binding ReceivedDate, StringFormat=d}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

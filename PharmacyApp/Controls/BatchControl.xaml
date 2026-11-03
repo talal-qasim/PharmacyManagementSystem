@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="PharmacyApp.Controls.BatchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,12">
+            <Button Content="Receive Batch" Width="130" Height="32" Margin="0,0,8,0"
+                    Style="{StaticResource PrimaryButtonStyle}" Command="{Binding AddCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Edit" Width="90" Height="32" Margin="0,0,8,0" Command="{Binding UpdateCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Delete" Width="90" Height="32" Margin="0,0,8,0" Command="{Binding DeleteCommand}"/>
+            <Button Style="{StaticResource SecondaryButtonStyle}" Content="Adjust Stock" Width="120" Height="32" Command="{Binding AdjustStockCommand}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding Batches}"
+                  SelectedItem="{Binding SelectedBatch}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Medicine" Binding="{Binding ProductVariant.Medicine.Name}" Width="140"/>
+                <DataGridTextColumn Header="Variant" Binding="{Binding ProductVariant.Strength}" Width="100"/>
+                <DataGridTextColumn Header="Batch No." Binding="{Binding BatchNumber}" Width="110"/>
+                <DataGridTextColumn Header="Expiry" Binding="{Binding ExpiryDate, StringFormat=d}" Width="100"/>
+                <DataGridTextColumn Header="Expiry Status" Binding="{Binding ExpiryStatus}" Width="100"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="80"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding PurchaseCost, StringFormat=C}" Width="90"/>
+                <DataGridTextColumn Header="Received" Binding="{Binding ReceivedDate, StringFormat=d}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

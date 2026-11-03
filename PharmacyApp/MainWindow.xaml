@@ -1,0 +1,147 @@
+<Window x:Class="PharmacyApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:PharmacyApp.Converters"
+        xmlns:models="clr-namespace:PharmacyApp.Models"
+        xmlns:ctls="clr-namespace:PharmacyApp.Controls"
+        Title="Pharmacy Management System"
+        Height="800" Width="1300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        FontFamily="Poppins">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" GlassFrameThickness="0" CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <conv:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Border Background="{DynamicResource PrimaryBackgroundColor}" CornerRadius="8">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Custom title bar (borderless chrome per Rule 8.2) -->
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{DynamicResource SecundaryBackgroundColor}"
+                  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <TextBlock Text="Pharmacy Management System"
+                           VerticalAlignment="Center" Margin="16,0"
+                           FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextColor}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0">
+                    <Button Content="—" Width="36" Height="32" Click="MinimizeButton_Click"
+                            Background="Transparent" Foreground="{DynamicResource SecundaryTextColor}" BorderThickness="0" FontFamily="Segoe UI" FontSize="14"/>
+                    <Button Content="☐" Width="36" Height="32" Click="MaximizeButton_Click"
+                            Background="Transparent" Foreground="{DynamicResource SecundaryTextColor}" BorderThickness="0" FontFamily="Segoe UI" FontSize="18"/>
+                    <Button Content="✕" Width="36" Height="32" Click="CloseButton_Click"
+                            Background="Transparent" Foreground="{DynamicResource SecundaryTextColor}" BorderThickness="0" FontFamily="Segoe UI" FontSize="14"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Sidebar navigation -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Background="{DynamicResource SecundaryBackgroundColor}" Margin="0">
+                
+                <RadioButton Content="Dashboard" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,16,12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Dashboard}, Mode=TwoWay}"/>
+
+                <RadioButton Content="Medicine Categories" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.MedicineCategory}, Mode=TwoWay}"/>
+
+                <RadioButton Content="Manufacturers" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Manufacturer}, Mode=TwoWay}"/>
+
+                <RadioButton Content="Suppliers" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Supplier}, Mode=TwoWay}"/>
+
+                <RadioButton Content="Medicines" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Medicine}, Mode=TwoWay}"/>
+                <RadioButton Content="Batches" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Batch}, Mode=TwoWay}"/>
+
+                <RadioButton Content="Stock Transactions" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.StockTransaction}, Mode=TwoWay}"/>
+                             
+                <RadioButton Content="Purchases" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Purchase}, Mode=TwoWay}"/>
+                <RadioButton Content="Sales" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Sale}, Mode=TwoWay}"/>
+                <RadioButton Content="Reports" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Reports}, Mode=TwoWay}"/>
+                <RadioButton Content="User Management" GroupName="Sidebar" Style="{StaticResource SidebarRadioButtonStyle}" Margin="12,4"
+                             Visibility="{Binding CanManageUsers, Converter={StaticResource BoolToVis}}"
+                             IsChecked="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.UserManagement}, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!-- Primary content: headerless TabControl driven by MainWindowTab (Rule 8.3) -->
+            <TabControl Grid.Row="1" Grid.Column="1" Background="Transparent" BorderThickness="0">
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </TabControl.ItemContainerStyle>
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Dashboard}, Mode=TwoWay}">
+                    <ctls:DashboardControl Margin="24" DataContext="{Binding DashboardListViewModel}"/>
+                </TabItem>
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.MedicineCategory}, Mode=TwoWay}">
+                    <ctls:MedicineCategoryControl Margin="24" DataContext="{Binding MedicineCategoryListViewModel}"/>
+                </TabItem>
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Manufacturer}, Mode=TwoWay}">
+                    <ctls:ManufacturerControl Margin="24" DataContext="{Binding ManufacturerListViewModel}"/>
+                </TabItem>
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Supplier}, Mode=TwoWay}">
+                    <ctls:SupplierControl Margin="24" DataContext="{Binding SupplierListViewModel}"/>
+                </TabItem>
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Medicine}, Mode=TwoWay}">
+                    <ctls:MedicineControl Margin="24" DataContext="{Binding MedicineListViewModel}"/>
+                </TabItem>
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Batch}, Mode=TwoWay}">
+                    <ctls:BatchControl Margin="24" DataContext="{Binding BatchListViewModel}"/>
+                </TabItem>
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.StockTransaction}, Mode=TwoWay}">
+                    <ctls:StockTransactionControl Margin="24" DataContext="{Binding StockTransactionListViewModel}"/>
+                </TabItem>
+
+
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Purchase}, Mode=TwoWay}">
+                    <ctls:PurchaseControl Margin="24" DataContext="{Binding PurchaseListViewModel}"/>
+                </TabItem>
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Sale}, Mode=TwoWay}">
+                    <ctls:SaleControl Margin="24" DataContext="{Binding SaleListViewModel}"/>
+                </TabItem>
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.Reports}, Mode=TwoWay}">
+                    <ctls:ReportsControl Margin="24" DataContext="{Binding ReportsViewModel}"/>
+                </TabItem>
+                <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static models:MainWindowTabEnum.UserManagement}, Mode=TwoWay}">
+                    <ctls:UserManagementControl Margin="24" DataContext="{Binding UserListViewModel}"/>
+                </TabItem>
+                <!--
+                    One <TabItem> is added here per module as it's built, e.g.:
+
+                    <TabItem IsSelected="{Binding MainWindowTab, Converter={StaticResource EnumToBooleanConverter},
+                                           ConverterParameter={x:Static models:MainWindowTabEnum.MedicineCategory}, Mode=TwoWay}">
+                        <ctls:MedicineCategoryControl Margin="24"/>
+                    </TabItem>
+                -->
+                
+            </TabControl>
+
+        </Grid>
+    </Border>
+</Window>

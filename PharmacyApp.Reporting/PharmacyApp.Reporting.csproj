@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>PharmacyApp.Reporting</RootNamespace>
+    <AssemblyName>PharmacyApp.Reporting</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <!-- DevExpress.Wpf.Reporting referenced per rulebook Section 9 once the
+         DevExpress NuGet feed + license are configured (see PharmacyApp.csproj note). -->
+    <!-- <PackageReference Include="DevExpress.Wpf.Reporting" Version="24.1.*" /> -->
+  </ItemGroup>
+
+</Project>
